@@ -1,0 +1,89 @@
+/* Manual Brasilidade, pp. 1, 10, 14–16. Os códigos HEX impressos são a referência. */
+@font-face {
+  font-family: 'Pathway Extreme';
+  src: url('/fonts/pathway-extreme-variable.ttf') format('truetype');
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+}
+
+:root {
+  --brand-green: #2ea452;
+  --brand-yellow: #ffe92d;
+  --brand-cream: #f1ede9;
+  /* Tons de apoio para contraste de texto; não substituem a paleta da marca. */
+  --paper: var(--brand-cream);
+  --ink: #153d24;
+  --muted: #435b49;
+  --accent: var(--brand-yellow);
+  --line: #cbd1c8;
+  --white: var(--brand-cream);
+  font-family: 'Pathway Extreme', Arial, sans-serif;
+  font-optical-sizing: auto;
+}
+
+h1, h2, h3 { font-weight: 750; letter-spacing: -.055em; }
+.wordmark { display: inline-block; flex-shrink: 0; }
+.wordmark img { width: 158px; height: auto; }
+.site-header { min-height: 128px; }
+.site-header nav { font-size: .85rem; }
+.site-header nav a { padding-block: 14px; }
+.nav-participate { border-bottom: 3px solid var(--brand-green); }
+a:focus-visible { outline-color: var(--ink); }
+.hero { grid-template-columns: 1fr 1fr; gap: 64px; }
+.hero-copy h1 { max-width: 620px; font-size: clamp(3.4rem, 6.2vw, 5.8rem); line-height: 1.02; }
+.hero-copy .lead { font-size: 1.08rem; }
+.hero-art {
+  min-height: 490px;
+  aspect-ratio: 1;
+  padding: 0;
+  background: var(--brand-green);
+}
+.hero-art .brand-pattern {
+  position: absolute;
+  width: 145%;
+  max-width: none;
+  height: auto;
+  left: -22%;
+  top: -15%;
+}
+.button { background: var(--brand-yellow); color: var(--ink); font-size: .85rem; }
+.button:hover { background: var(--ink); color: var(--brand-cream); }
+.provisional { border-color: var(--brand-green); }
+.eyebrow { letter-spacing: .12em; }
+.initiatives-section { background: #e4e9df; }
+.initiative { background: var(--brand-cream); }
+.initiative-visual { background: var(--brand-green); color: var(--ink); }
+.initiative-symbol {
+  position: absolute;
+  width: 185px;
+  height: auto;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.initiative-visual > span { font-weight: 700; }
+.participate { background: var(--brand-yellow); color: var(--ink); }
+.participate-links p { color: var(--ink); }
+.participate .button.light { background: var(--ink); color: var(--brand-cream); }
+.participate .button.light:hover { background: #245c37; }
+.site-footer { border-top: 8px solid var(--brand-green); }
+.site-footer .wordmark img { width: 140px; }
+.footer-inner { align-items: center; }
+
+@media (max-width: 900px) {
+  .hero { gap: 32px; }
+  .hero-art { min-height: 380px; }
+  .site-header nav { gap: 18px; }
+  .hero-copy h1 { font-size: clamp(3.2rem, 6.2vw, 4.5rem); }
+}
+@media (max-width: 650px) {
+  .site-header { min-height: 0; gap: 18px; }
+  .wordmark img { width: 138px; }
+  .site-header nav { gap: 16px; font-size: .74rem; }
+  .hero { grid-template-columns: 1fr; gap: 32px; }
+  .hero-copy h1 { font-size: clamp(3rem, 12.5vw, 4.8rem); }
+  .hero-art { min-height: 0; aspect-ratio: 1.15; }
+  .initiative-symbol { width: 140px; }
+  .footer-inner { align-items: flex-start; }
+}

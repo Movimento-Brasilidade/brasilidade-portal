@@ -1,0 +1,12 @@
+---
+import { render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import { getPublications, formatDate } from '../../lib/content';
+export async function getStaticPaths() { return (await getPublications()).map(entry => ({ params: { id: entry.id }, props: { entry } })); }
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+---
+<Base title={entry.data.title} description={entry.data.description} image={entry.data.image} imageAlt={entry.data.imageAlt} articleDate={entry.data.date} author={entry.data.author}>
+<article class="wrap page article"><a class="back" href="/publicacoes/">← Todas as publicações</a><header class="page-heading"><div class="tags">{entry.data.tags.map(tag => <span>{tag}</span>)}</div><h1>{entry.data.title}</h1><p class="lead">{entry.data.description}</p><p>{entry.data.author} · <time datetime={entry.data.date.toISOString()}>{formatDate(entry.data.date)}</time></p></header>
+{entry.data.image && <img class="cover" src={entry.data.image} alt={entry.data.imageAlt} width="1200" height="675" />}
+<div class="prose"><Content /></div></article></Base>

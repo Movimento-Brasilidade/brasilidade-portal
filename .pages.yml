@@ -1,0 +1,84 @@
+media:
+  input: public/uploads
+  output: /uploads
+  extensions: [png, jpg, jpeg, webp, avif]
+content:
+  - name: publications
+    label: Publicações (reservadas para expansão)
+    type: collection
+    path: src/content/publicacoes
+    format: yaml-frontmatter
+    filename: '{primary}.md'
+    view:
+      primary: title
+      fields: [title, date, draft]
+      sort: [date]
+      default: { sort: date, order: desc }
+    fields:
+      - { name: title, label: Título, type: string, required: true }
+      - { name: description, label: Resumo, type: text, required: true }
+      - { name: date, label: Data, type: date, required: true }
+      - { name: author, label: Autoria, type: string, required: true }
+      - { name: draft, label: Rascunho (não aparece no site), type: boolean, default: true }
+      - { name: tags, label: Etiquetas, type: string, list: true }
+      - { name: image, label: Capa, type: image }
+      - { name: imageAlt, label: Descrição da imagem (obrigatória com capa), type: string }
+      - { name: body, label: Conteúdo, type: rich-text, required: true }
+  - name: initiatives
+    label: Iniciativas (reservadas para expansão)
+    type: collection
+    path: src/content/iniciativas
+    format: yaml-frontmatter
+    filename: '{primary}.md'
+    view: { primary: title, fields: [title, status, draft] }
+    fields:
+      - { name: title, label: Nome, type: string, required: true }
+      - { name: description, label: Descrição, type: text, required: true }
+      - name: status
+        label: Situação
+        type: select
+        required: true
+        options:
+          values: [Em apresentação, Em desenvolvimento, Em atividade, Concluída]
+      - { name: draft, label: Rascunho (não aparece no site), type: boolean, default: true }
+      - { name: image, label: Imagem, type: image }
+      - { name: imageAlt, label: Descrição da imagem (obrigatória com imagem), type: string }
+      - name: links
+        label: Links externos
+        type: object
+        list: true
+        fields:
+          - { name: label, label: Texto do link, type: string, required: true }
+          - { name: url, label: Endereço HTTP(S), type: string, required: true }
+      - { name: body, label: Apresentação, type: rich-text, required: true }
+  - name: about
+    label: Quem somos (reservado para expansão)
+    type: file
+    path: src/content/institucional/sobre.md
+    format: yaml-frontmatter
+    fields:
+      - { name: title, label: Título, type: string, required: true }
+      - { name: description, label: Descrição para buscadores, type: text, required: true }
+      - { name: provisional, label: Exibir aviso de conteúdo provisório, type: boolean }
+      - { name: body, label: Conteúdo, type: rich-text, required: true }
+  - name: site
+    label: Landing page e Instagram
+    type: file
+    path: src/content/site.json
+    format: json
+    fields:
+      - { name: name, label: Nome do movimento, type: string, required: true }
+      - { name: description, label: Descrição legada (landing usa a apresentação), type: text, required: true }
+      - { name: publicUrl, label: URL pública (HTTPS, sem caminho), type: string }
+      - { name: instagramUrl, label: Instagram oficial (URL completa), type: string }
+      - { name: instagramLabel, label: Perfil exibido no rodapé, type: string, required: true }
+      - { name: instagramCta, label: Texto do botão Instagram, type: string, required: true }
+      - { name: tramaUrl, label: URL da Trama Legislativa, type: string }
+      - { name: contactEmail, label: E-mail público de contato, type: string }
+      - { name: heroTitle, label: Título de abertura, type: string, required: true }
+      - { name: heroAccent, label: Complemento do título, type: string, required: true }
+      - { name: heroText, label: Apresentação (também usada nos buscadores), type: text, required: true }
+      - { name: aboutTitle, label: Título da seção Quem somos, type: string, required: true }
+      - { name: aboutText, label: Resumo Quem somos, type: text, required: true }
+      - { name: participateText, label: Texto Participe, type: text, required: true }
+      - { name: provisional, label: Exibir aviso de conteúdo institucional provisório, type: boolean }

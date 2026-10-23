@@ -1,0 +1,16 @@
+{
+  "name": "brasilidade-portal",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev --host 127.0.0.1",
+    "build": "astro check && astro build",
+    "check": "astro check",
+    "preview": "astro preview --host 127.0.0.1",
+    "test": "node --test tests/*.test.mjs"
+  },
+  "dependencies": { "astro": "^5.16.0" },
+  "devDependencies": { "@astrojs/check": "^0.9.4", "typescript": "^5.9.3", "yaml": "^2.8.1" },
+  "engines": { "node": ">=22.19.0" }
+}

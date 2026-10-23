@@ -1,0 +1,7 @@
+---
+import Base from '../../layouts/Base.astro';
+import Publications from '../../components/Publications.astro';
+import { getPublications } from '../../lib/content';
+const entries = await getPublications();
+---
+<Base title="Publicações" description="Artigos, análises e notícias do Brasilidade."><div class="wrap page"><header class="page-heading"><p class="eyebrow">Ideias e debate</p><h1>Publicações.</h1><p class="lead">Artigos, análises e notícias do Brasilidade.</p></header><Publications entries={entries} /></div></Base>

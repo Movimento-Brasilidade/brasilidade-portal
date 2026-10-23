@@ -1,0 +1,9 @@
+---
+import { getEntry, render } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import Participate from '../components/Participate.astro';
+const entry = await getEntry('institutional', 'sobre');
+if (!entry) throw new Error('Conteúdo institucional sobre.md não encontrado.');
+const { Content } = await render(entry);
+---
+<Base title={entry.data.title} description={entry.data.description}><article class="wrap page article"><header class="page-heading"><p class="eyebrow">Brasilidade</p><h1>{entry.data.title}.</h1>{entry.data.provisional && <p class="provisional">Texto provisório · conteúdo definitivo em preparação.</p>}</header><div class="prose"><Content /></div></article><Participate /></Base>

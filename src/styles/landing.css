@@ -1,0 +1,34 @@
+/* Landing de lançamento: composição baseada no wireframe desktop e mobile. */
+body { min-height: 100svh; display: flex; flex-direction: column; }
+.wrap { width: min(1180px, calc(100% - 64px)); }
+.site-header { min-height: 88px; border-bottom: 1px solid var(--line); }
+.header-slogan, .coming-soon { font-size: .9rem; font-weight: 750; text-transform: uppercase; text-decoration: none; }
+.header-slogan { color: #247f40; }
+.coming-soon span { margin-left: 10px; }
+main { flex: 1; display: grid; align-items: center; }
+.landing { text-align: center; padding-block: 64px 60px; }
+.brand-stage { position: relative; margin-bottom: 48px; }
+.landing-logo { width: min(390px, 75%); margin-inline: auto; }
+.sun-dot { position: absolute; width: 130px; aspect-ratio: 1; border-radius: 50%; background: var(--brand-yellow); right: 3%; top: 50%; transform: translateY(-50%); }
+.landing h1 { margin: 0 0 32px; font-size: clamp(2rem, 4.4vw, 3.75rem); line-height: 1.16; letter-spacing: -.025em; text-transform: uppercase; }
+.landing h1 span { display: block; color: #247f40; }
+.landing-intro { max-width: 640px; margin: 0 auto 32px; font-size: clamp(1.05rem, 1.8vw, 1.35rem); line-height: 1.6; }
+.instagram-button { display: inline-flex; align-items: center; justify-content: center; gap: 24px; max-width: 100%; padding: 20px 44px; border-radius: 999px; background: #247f40; color: #fff; font-size: 1rem; font-weight: 750; text-transform: uppercase; text-decoration: none; }
+.instagram-button:hover { background: var(--ink); text-decoration: none; }
+.site-footer { border: 0; padding: 0; }
+.footer-inner { border-top: 1px solid var(--line); min-height: 76px; align-items: center; }
+.site-footer p { margin: 0; }
+.copyright { text-transform: uppercase; font-weight: 700; }
+.site-footer a { padding-block: 16px; color: var(--muted); text-decoration: none; }
+@media (max-width: 650px) {
+  .wrap { width: calc(100% - 40px); }
+  .site-header { flex-direction: row; justify-content: center; align-items: center; min-height: 70px; padding: 0; }
+  .coming-soon, .sun-dot, .copyright { display: none; }
+  .landing { padding-block: 64px 56px; }
+  .brand-stage { margin-bottom: 56px; }
+  .landing-logo { width: min(300px, 92%); }
+  .landing h1 { font-size: clamp(1.5rem, 6.5vw, 2rem); margin-bottom: 36px; line-height: 1.35; }
+  .landing-intro { max-width: 310px; margin-bottom: 32px; }
+  .instagram-button { width: 100%; padding: 19px 16px; gap: 12px; font-size: .85rem; }
+  .footer-inner { flex-direction: row; justify-content: center; gap: 0; min-height: 72px; }
+}

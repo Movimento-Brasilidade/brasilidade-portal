@@ -1,0 +1,12 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { formatDate, entryUrl } from '../lib/content';
+interface Props { entries: CollectionEntry<'publications'>[] }
+const { entries } = Astro.props;
+---
+{entries.length === 0 ? <div class="empty"><p class="eyebrow">Em breve</p><h3>Um espaço para ideias e debate.</h3><p>Artigos, análises e notícias do Brasilidade serão publicados aqui.</p></div> :
+  <div class="publication-list">{entries.map(entry => <article class="publication-row">
+    <div class="publication-meta"><time datetime={entry.data.date.toISOString()}>{formatDate(entry.data.date)}</time><span>{entry.data.author}</span></div>
+    <div><div class="tags">{entry.data.tags.map(tag => <span>{tag}</span>)}</div><h3><a href={entryUrl('publicacoes', entry.id)}>{entry.data.title} <span aria-hidden="true">↗</span></a></h3><p>{entry.data.description}</p></div>
+    {entry.data.image && <img src={entry.data.image} alt={entry.data.imageAlt} loading="lazy" width="240" height="160" />}
+  </article>)}</div>}

@@ -1,0 +1,7 @@
+---
+import Base from '../../layouts/Base.astro';
+import Initiatives from '../../components/Initiatives.astro';
+import { getInitiatives } from '../../lib/content';
+const entries = await getInitiatives();
+---
+<Base title="Iniciativas" description="Conheça os projetos e ações do Brasilidade."><div class="wrap page"><header class="page-heading"><p class="eyebrow">Projetos e ações</p><h1>Iniciativas.</h1><p class="lead">Conheça as iniciativas públicas do Brasilidade.</p></header><Initiatives entries={entries} /></div></Base>

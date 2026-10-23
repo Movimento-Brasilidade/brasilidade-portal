@@ -1,0 +1,8 @@
+---
+import { site } from '../config/site';
+---
+<section id="participe" class="participate"><div class="wrap participate-inner"><div><p class="eyebrow">Faça parte da conversa</p><h2>Participe.</h2><p>{site.participateText}</p></div><div class="participate-links">
+{site.instagramUrl && <a class="button light" href={site.instagramUrl}>Acompanhe no Instagram ↗</a>}
+{site.contactEmail && <a href={`mailto:${site.contactEmail}`}>Entre em contato →</a>}
+{!site.instagramUrl && !site.contactEmail && <p>Os canais oficiais serão disponibilizados em breve.</p>}
+</div></div></section>
