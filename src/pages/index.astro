@@ -5,7 +5,7 @@ import { site } from '../config/site';
 <Base description={site.heroText}>
   <section class="landing wrap" aria-labelledby="apresentacao">
     <div class="brand-stage">
-      <img class="landing-logo" src="/brand/logo-green.png" alt={site.name} width="1473" height="657" />
+      <img class="landing-logo" src={`${import.meta.env.BASE_URL}brand/logo-green.png`} alt={site.name} width="1473" height="657" />
       <span class="sun-dot" aria-hidden="true"></span>
     </div>
     <h1 id="apresentacao">{site.heroTitle}<span>{site.heroAccent}</span></h1>

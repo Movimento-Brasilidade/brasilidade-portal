@@ -15,6 +15,16 @@ Página única de lançamento, baseada no wireframe desktop e mobile, com identi
 
 As instruções sobre coleções abaixo descrevem a estrutura **reservada para expansão**. Editar ou publicar uma coleção no CMS não cria páginas na versão atual. A edição da landing page continua acionando o build normalmente após conectar as contas.
 
+## GitHub Pages (hospedagem atual)
+
+Endereço: https://movimento-brasilidade.github.io/brasilidade-portal/
+
+Em **Settings → Pages → Build and deployment**, selecione **GitHub Actions** como Source. O workflow `.github/workflows/check.yml` instala, compila, testa e publica `dist` a cada push em `main`. Pull requests apenas validam o projeto.
+
+`astro.config.mjs` define o domínio e a base `/brasilidade-portal`. Imagens, fontes, links, canonical, robots e sitemap respeitam esse caminho. A prévia local também usa `/brasilidade-portal/`. O GitHub Pages usa os redirecionamentos HTML gerados pelo Astro para as rotas antigas conhecidas; regras `_redirects` e `_headers` são exclusivas do Cloudflare e não têm efeito no GitHub Pages. Subcaminhos desconhecidos mostram o 404.
+
+A configuração de Cloudflare abaixo permanece como referência histórica. Para migrar para domínio próprio, ajustar `site`, `base`, caminhos esperados nos testes e configuração de domínio antes de publicar.
+
 ## Desenvolvimento
 
 Requer Node 22.19 ou superior compatível com Astro 5 e npm. A versão fixada para CI e deploy é 22.22.0.
@@ -27,7 +37,7 @@ npm test
 npm run preview
 ```
 
-`dev` abre o servidor em `http://127.0.0.1:4321`. `build` valida TypeScript e os esquemas antes de gerar `dist/`. `test` verifica a configuração do CMS e as rotas geradas; execute após o build. O lockfile fixa as versões instaladas.
+`dev` abre o servidor em `http://127.0.0.1:4321/brasilidade-portal/`. `build` valida TypeScript e os esquemas antes de gerar `dist/`. `test` verifica a configuração do CMS e as rotas geradas; execute após o build. O lockfile fixa as versões instaladas.
 
 No computador usado na implementação, o Node global era 22.14.0, abaixo do mínimo de uma dependência transitiva. O build final foi executado com Node 22.22.0 temporário, sem mudar a instalação global. Atualize seu runtime para a versão de `.node-version` antes de instalar/desenvolver. Em ambientes restritos, use `ASTRO_TELEMETRY_DISABLED=1` para evitar a gravação da configuração de telemetria fora do projeto.
 

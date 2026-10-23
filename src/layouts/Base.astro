@@ -15,7 +15,7 @@ const socialImage = image && Astro.site ? new URL(image, Astro.site).href : unde
     <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{pageTitle}</title><meta name="description" content={description} />
     <meta name="theme-color" content="#2EA452" />
-    <link rel="icon" type="image/png" href="/brand/favicon.png" />
+    <link rel="icon" type="image/png" href={`${import.meta.env.BASE_URL}brand/favicon.png`} />
     {(noindex || !Astro.site) && <meta name="robots" content="noindex, follow" />}
     {canonical && <link rel="canonical" href={canonical} />}
     <meta property="og:locale" content="pt_BR" /><meta property="og:site_name" content={site.name} />
@@ -31,7 +31,7 @@ const socialImage = image && Astro.site ? new URL(image, Astro.site).href : unde
   <body>
     <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
     <header class="site-header wrap">
-      <a class="header-slogan" href="/">{site.heroTitle}</a>
+      <a class="header-slogan" href={import.meta.env.BASE_URL}>{site.heroTitle}</a>
       <span class="coming-soon">Em breve <span aria-hidden="true">↗</span></span>
     </header>
     <main id="conteudo" tabindex="-1"><slot /></main>
