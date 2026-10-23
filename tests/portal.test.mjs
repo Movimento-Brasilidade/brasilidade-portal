@@ -36,8 +36,8 @@ test('links internos de todas as páginas resolvem na saída estática', async (
   for (const path of files.filter(f => f.endsWith('.html'))) {
     const html = await read(`dist/${path.replaceAll('\\', '/')}`);
     for (const match of html.matchAll(/(?:href|src)="(\/[^"#?]*)(?:[?#][^"]*)?"/g)) {
-      assert.ok(match[1].startsWith('/brasilidade-portal/'), `${path}: caminho fora da base: ${match[1]}`);
-      const target = decodeURIComponent(match[1]).slice('/brasilidade-portal'.length);
+      assert.ok(!match[1].startsWith('/brasilidade-portal/'), `${path}: prefixo antigo: ${match[1]}`);
+      const target = decodeURIComponent(match[1]);
       const file = target.endsWith('/') ? `${target}index.html` : target;
       await assert.doesNotReject(access(new URL(`../dist${file}`, import.meta.url)), `${path}: ${target}`);
     }
@@ -62,7 +62,7 @@ test('rotas antigas redirecionam sem conteúdo editorial e não entram no sitema
   for (const route of ['sobre', 'iniciativas', 'publicacoes', 'iniciativas/trama-legislativa']) {
     const html = await read(`dist/${route}/index.html`);
     assert.match(html, /http-equiv="refresh"/i);
-    assert.match(html, /url=\/brasilidade-portal\//i);
+    assert.match(html, /content="2;url=\/"/i);
     assert.doesNotMatch(html, /<article|Apresentação provisória/);
   }
   const redirects = await read('dist/_redirects');
@@ -73,9 +73,21 @@ test('rotas antigas redirecionam sem conteúdo editorial e não entram no sitema
   const sitemap = await read('dist/sitemap.xml');
   assert.doesNotMatch(sitemap, /sobre|iniciativas|publicacoes/);
   assert.equal((sitemap.match(/<loc>/g) || []).length, 1);
-  assert.ok(sitemap.includes('https://movimento-brasilidade.github.io/brasilidade-portal/'));
-  assert.ok((await read('dist/robots.txt')).includes('https://movimento-brasilidade.github.io/brasilidade-portal/sitemap.xml'));
+  assert.ok(sitemap.includes('https://somosbrasilidade.com.br/'));
+  assert.ok((await read('dist/robots.txt')).includes('https://somosbrasilidade.com.br/sitemap.xml'));
   const home = await read('dist/index.html');
-  assert.ok(home.includes('rel="canonical" href="https://movimento-brasilidade.github.io/brasilidade-portal/"'));
+  assert.ok(home.includes('rel="canonical" href="https://somosbrasilidade.com.br/"'));
   assert.doesNotMatch(home, /noindex/);
+});
+
+
+test('assets referenciados pelo CSS existem na raiz do domínio próprio', async () => {
+  const files = await readdir(new URL('../dist/_astro/', import.meta.url));
+  for (const file of files.filter(f => f.endsWith('.css'))) {
+    const css = await read(`dist/_astro/${file}`);
+    assert.doesNotMatch(css, /brasilidade-portal/);
+    for (const match of css.matchAll(/url\(["']?(\/[^)"']+)["']?\)/g)) {
+      await assert.doesNotReject(access(new URL(`../dist${match[1]}`, import.meta.url)));
+    }
+  }
 });
