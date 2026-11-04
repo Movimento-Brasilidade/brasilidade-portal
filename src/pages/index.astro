@@ -3,15 +3,62 @@ import Base from '../layouts/Base.astro';
 import { site } from '../config/site';
 ---
 <Base description={site.heroText}>
-  <section class="landing wrap" aria-labelledby="apresentacao">
-    <div class="brand-stage">
-      <img class="landing-logo" src={`${import.meta.env.BASE_URL}brand/logo-green.png`} alt={site.name} width="1473" height="657" />
-      <span class="sun-dot" aria-hidden="true"></span>
+  <section class="landing-hero wrap" aria-labelledby="apresentacao">
+    <div class="hero-copy">
+      <p class="section-label">Brasilidade <span>—</span> Portal beta</p>
+      <h1 id="apresentacao">{site.heroTitle}<span>{site.heroAccent}</span></h1>
+      <p class="landing-intro">{site.heroText}</p>
+      <a class="primary-link" href="#sobre">Conheça o movimento <span aria-hidden="true">↘</span></a>
     </div>
-    <h1 id="apresentacao">{site.heroTitle}<span>{site.heroAccent}</span></h1>
-    <p class="landing-intro">{site.heroText}</p>
-    {site.instagramUrl && <a class="instagram-button" href={site.instagramUrl}>
-      {site.instagramCta} <span aria-hidden="true">↗</span>
-    </a>}
+    <div class="hero-visual" aria-hidden="true">
+      <span class="visual-orbit"></span>
+      <img src={`${import.meta.env.BASE_URL}brand/symbol-yellow.png`} alt="" width="639" height="657" />
+      <span class="visual-caption">Um espaço para o Brasil que se move.</span>
+    </div>
+  </section>
+
+  <section id="sobre" class="beta-section about-section wrap" aria-labelledby="sobre-titulo">
+    <p class="section-label">01 / Quem somos</p>
+    <div>
+      <h2 id="sobre-titulo">{site.aboutTitle}</h2>
+      <p>{site.aboutText}</p>
+      <p>Este portal está começando. Em breve, reuniremos aqui mais informações sobre nossas ideias e formas de atuação.</p>
+    </div>
+  </section>
+
+  <section id="projetos-e-ideias" class="beta-section upcoming-section" aria-labelledby="proximos-titulo">
+    <div class="wrap">
+      <p class="section-label">02 / Projetos e ideias</p>
+      <h2 id="proximos-titulo">Em movimento.</h2>
+      <div class="upcoming-grid">
+        <article>
+          <span class="card-number">01</span>
+          <h3>Trama Legislativa</h3>
+          <p>Busque proposições da Câmara dos Deputados e acompanhe sua tramitação.</p>
+          {site.tramaUrl && <a class="card-link" href={site.tramaUrl}>Acessar a Trama <span aria-hidden="true">↗</span></a>}
+        </article>
+        <article>
+          <span class="card-number">02</span>
+          <h3>Ideias e publicações</h3>
+          <p>Textos, análises e conversas para pensar o Brasil. As primeiras publicações chegarão aqui.</p>
+          <span class="card-status">Conteúdo em preparação</span>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="participe" class="beta-section join-section" aria-labelledby="participe-titulo">
+    <div class="wrap join-inner">
+      <div>
+        <p class="section-label">03 / Acompanhe</p>
+        <h2 id="participe-titulo">Fique por perto.</h2>
+        <p>{site.participateText}</p>
+      </div>
+      <div class="join-links">
+        {site.whatsappUrl && <a class="primary-link" href={site.whatsappUrl}>Entre no grupo do WhatsApp <span aria-hidden="true">↗</span></a>}
+        {site.instagramUrl && <a class="secondary-link" href={site.instagramUrl}>{site.instagramCta} <span aria-hidden="true">↗</span></a>}
+        {site.contactEmail && <a class="secondary-link" href={`mailto:${site.contactEmail}`}>{site.contactEmail} <span aria-hidden="true">↗</span></a>}
+      </div>
+    </div>
   </section>
 </Base>

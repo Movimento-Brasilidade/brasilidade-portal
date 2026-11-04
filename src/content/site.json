@@ -3,15 +3,16 @@
   "description": "Estamos preparando um espaço para encontros, ideias e iniciativas que movimentam o Brasil.",
   "publicUrl": "",
   "instagramUrl": "https://www.instagram.com/somosbrasilidade/",
-  "tramaUrl": "",
-  "contactEmail": "",
+  "whatsappUrl": "https://chat.whatsapp.com/I1I1KMd19947Qx50C1FPO4?s=cl&p=a&mlu=4&ilr=4&iam=2",
+  "tramaUrl": "https://legislativo.somosbrasilidade.com.br/",
+  "contactEmail": "mov.brasilidade@gmail.com",
   "heroTitle": "O Brasil que vive",
   "heroText": "Estamos preparando um espaço para encontros, ideias e iniciativas que movimentam o Brasil.",
   "aboutTitle": "Um movimento brasileiro.",
   "aboutText": "O Brasilidade é um movimento político e social brasileiro que reúne pessoas, ideias e iniciativas.",
-  "participateText": "Acompanhe os canais oficiais do Brasilidade para conhecer as formas de participação.",
+  "participateText": "Entre no grupo para conversar com o Brasilidade ou acompanhe nossos canais oficiais.",
   "provisional": false,
   "instagramLabel": "@somosbrasilidade",
   "instagramCta": "Acompanhe no Instagram",
-  "heroAccent": "Está chegando."
+  "heroAccent": "Está tomando forma."
 }

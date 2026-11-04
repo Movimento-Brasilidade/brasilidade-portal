@@ -31,12 +31,16 @@ const socialImage = image && Astro.site ? new URL(image, Astro.site).href : unde
   <body>
     <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
     <header class="site-header wrap">
-      <a class="header-slogan" href={import.meta.env.BASE_URL}>{site.heroTitle}</a>
-      <span class="coming-soon">Em breve <span aria-hidden="true">↗</span></span>
+      <a class="header-logo" href={import.meta.env.BASE_URL} aria-label="Brasilidade — início"><img src={`${import.meta.env.BASE_URL}brand/logo-green.png`} alt="" width="1473" height="657" /></a>
+      <nav aria-label="Navegação principal">
+        <a href={`${import.meta.env.BASE_URL}#sobre`}>Quem somos</a>
+        <a href={`${import.meta.env.BASE_URL}#projetos-e-ideias`}>Projetos e ideias</a>
+        <a href={`${import.meta.env.BASE_URL}#participe`}>Participe</a>
+      </nav>
     </header>
     <main id="conteudo" tabindex="-1"><slot /></main>
     <footer class="site-footer"><div class="wrap footer-inner">
-      <p class="copyright">© {site.name}</p>
+      <p class="copyright">© {site.name} <span>· Portal beta</span></p>
       {site.instagramUrl && <a href={site.instagramUrl}>{site.instagramLabel} <span aria-hidden="true">↗</span></a>}
     </div></footer>
   </body>

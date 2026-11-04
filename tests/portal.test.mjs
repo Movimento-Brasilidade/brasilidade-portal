@@ -44,7 +44,7 @@ test('links internos de todas as páginas resolvem na saída estática', async (
   }
 });
 
-test('landing usa apresentação aprovada e apenas o Instagram como destino externo', async () => {
+test('beta apresenta seções reais, estados em preparação e canais oficiais', async () => {
   const config = JSON.parse(await read('src/content/site.json'));
   const html = await read('dist/index.html');
   assert.ok(html.includes(config.heroText));
@@ -53,9 +53,16 @@ test('landing usa apresentação aprovada e apenas o Instagram como destino exte
   assert.ok(html.includes(`name="description" content="${config.heroText}"`));
   assert.ok(html.includes(`property="og:description" content="${config.heroText}"`));
   assert.ok(html.includes(`href="${config.instagramUrl}"`));
+  assert.ok(html.includes(`href="${config.whatsappUrl}"`));
+  assert.ok(html.includes(`href="mailto:${config.contactEmail}"`));
+  assert.ok(html.includes(`href="${config.tramaUrl}"`));
   assert.ok(html.includes(config.instagramCta));
   assert.ok(html.includes(config.instagramLabel));
-  assert.doesNotMatch(html, /<nav|Trama Legislativa|em revisão|trabalhistas|desenvolvimentistas|<form/);
+  assert.ok(html.includes(config.aboutTitle));
+  assert.ok(html.includes(config.aboutText));
+  for (const id of ['sobre', 'projetos-e-ideias', 'participe']) assert.ok(html.includes(`id="${id}"`));
+  assert.match(html, /Conteúdo em preparação/);
+  assert.doesNotMatch(html, /em revisão|trabalhistas|desenvolvimentistas|<form/);
   assert.equal((html.match(/<h1[ >]/g) || []).length, 1);
 });
 test('rotas antigas redirecionam sem conteúdo editorial e não entram no sitemap', async () => {

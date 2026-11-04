@@ -62,7 +62,7 @@ content:
       - { name: provisional, label: Exibir aviso de conteúdo provisório, type: boolean }
       - { name: body, label: Conteúdo, type: rich-text, required: true }
   - name: site
-    label: Landing page e Instagram
+    label: Portal e canais de contato
     type: file
     path: src/content/site.json
     format: json
@@ -71,6 +71,7 @@ content:
       - { name: description, label: Descrição legada (landing usa a apresentação), type: text, required: true }
       - { name: publicUrl, label: URL pública (HTTPS, sem caminho), type: string }
       - { name: instagramUrl, label: Instagram oficial (URL completa), type: string }
+      - { name: whatsappUrl, label: Convite do grupo WhatsApp (URL completa), type: string }
       - { name: instagramLabel, label: Perfil exibido no rodapé, type: string, required: true }
       - { name: instagramCta, label: Texto do botão Instagram, type: string, required: true }
       - { name: tramaUrl, label: URL da Trama Legislativa, type: string }
