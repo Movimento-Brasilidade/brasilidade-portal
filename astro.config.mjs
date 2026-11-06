@@ -9,7 +9,6 @@ export default defineConfig({
   redirects: {
     '/sobre': { destination: '/', status: 302 },
     '/iniciativas': { destination: '/', status: 302 },
-    '/publicacoes': { destination: '/', status: 302 },
     '/iniciativas/trama-legislativa': { destination: '/', status: 302 },
   },
 });

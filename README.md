@@ -1,19 +1,21 @@
 # Landing page Brasilidade
 
-Página única de lançamento, baseada no wireframe desktop e mobile, com identidade oficial e link para **@somosbrasilidade**. Sem formulário, cadastro, rastreamento ou dependências novas.
+Portal beta com apresentação, projetos e canais de contato. Sem formulário, cadastro, rastreamento ou dependências novas.
+
+Planejamento de evolução e decisões pendentes: [Roadmap do portal](docs/ROADMAP.md).
 
 ## Versão atual
 
-- `/`: marca centralizada, “O Brasil que vive / Está chegando.”, mensagem de lançamento e botão “Acompanhe no Instagram”.
-- Cabeçalho com slogan, sem menu; rodapé com nome e perfil. No celular, ficam apenas slogan e perfil.
+- `/`: apresentação do movimento, projetos e ideias, aviso da futura loja, canais de contato e acesso às Publicações quando houver artigo aprovado.
+- Cabeçalho com marca e navegação; rodapé com nome e perfil.
 - `heroTitle` e `heroAccent` definem as duas linhas do título; `heroText` em `src/content/site.json` é a fonte única da apresentação visível e dos metadados. `description` permanece como campo legado para compatibilidade.
 - `instagramUrl`, `instagramLabel` e `instagramCta` controlam o endereço, o perfil no rodapé e o botão. Todos são editáveis em **Landing page e Instagram** no Pages CMS.
-- Sobre, Iniciativas e Publicações não geram conteúdo público. Templates foram preservados em `src/archived-pages`, fora do roteamento Astro; componentes e coleções continuam disponíveis para futura expansão. A Trama permanece apenas no conteúdo preservado.
-- URLs antigas redirecionam para `/`: regras 302 em `public/_redirects` cobrem os caminhos exatos, barras finais e subcaminhos no Cloudflare Pages. Astro oferece redirecionamentos locais para as antigas páginas principais e a Trama; no build estático são páginas mínimas de redirecionamento HTML, sem conteúdo editorial. As regras wildcard de hospedagem dependem do Cloudflare e não são interpretadas pelo servidor local do Astro.
-- Sitemap contém apenas a página inicial quando existe domínio configurado; 404 e redirecionamentos ficam excluídos.
-- Para reativar o portal futuramente, restaurar os templates em `src/pages`, retirar os redirecionamentos correspondentes e revisar navegação, sitemap e testes antes de publicar.
+- Sobre e Iniciativas não geram conteúdo público; seus templates permanecem em `src/archived-pages`. Publicações usa a coleção Markdown existente: enquanto não houver artigo aprovado, `/publicacoes/` redireciona à página inicial e o cartão continua em preparação. A Trama permanece apenas no conteúdo preservado.
+- Sobre e Iniciativas continuam redirecionadas para `/`. Sem artigo aprovado, `/publicacoes/` também redireciona para `/`; com artigo aprovado, abre a listagem.
+- Sitemap contém a página inicial e, quando houver artigos aprovados, a listagem e suas páginas individuais. 404 e redirecionamentos ficam excluídos.
+- Para reativar Sobre e Iniciativas futuramente, restaurar seus templates em `src/pages`, retirar os redirecionamentos correspondentes e revisar navegação, sitemap e testes antes de publicar.
 
-As instruções sobre coleções abaixo descrevem a estrutura **reservada para expansão**. Editar ou publicar uma coleção no CMS não cria páginas na versão atual. A edição da landing page continua acionando o build normalmente após conectar as contas.
+Publicações já gera listagem e páginas individuais quando existe artigo com `draft: false`; as outras coleções permanecem **reservadas para expansão**. A edição da landing page continua acionando o build normalmente após conectar as contas.
 
 ## GitHub Pages (hospedagem atual)
 
@@ -45,8 +47,8 @@ Validação da landing page: `astro check` sem erros ou avisos; build estático 
 
 ## Estrutura
 
-- `src/pages`: início, 404, robots e sitemap.
-- `src/archived-pages`: templates de Sobre, Iniciativas e Publicações, sem geração pública.
+- `src/pages`: início, Publicações, 404, robots e sitemap.
+- `src/archived-pages`: templates de Sobre e Iniciativas, sem geração pública.
 - `src/components`: seções reutilizáveis da página inicial e listagens.
 - `src/layouts`: documento HTML e metadados compartilhados.
 - `src/content`: textos, configurações públicas e coleções editoriais.
@@ -58,7 +60,7 @@ Validação da landing page: `astro check` sem erros ou avisos; build estático 
 
 ## Editar conteúdo
 
-### Publicações (expansão futura)
+### Publicações
 
 Crie `src/content/publicacoes/titulo-do-artigo.md` (nome sem espaços ou acentos). O nome define `/publicacoes/titulo-do-artigo/`; evite renomear após publicar, pois isso muda o endereço. Campos:
 
@@ -78,7 +80,7 @@ Texto em Markdown.
 
 `image` e `imageAlt` podem ser omitidos quando não há capa. Uma imagem exige texto alternativo. `draft: true` exclui a publicação das listagens, páginas individuais e sitemap. Campo ausente também equivale a rascunho. Rascunhos **não são sigilosos**: continuam visíveis no repositório público. Não há agendamento: a data organiza a listagem, mas `draft: false` publica no próximo deploy, mesmo com data futura. Datas são exibidas em UTC para evitar mudança de dia no Brasil.
 
-O exemplo editorial fornecido permanece em rascunho. A listagem inicial vazia é intencional, sem artigos oficiais inventados.
+O exemplo editorial fornecido permanece em rascunho. Sem artigos aprovados, a página de Publicações redireciona à inicial; ao publicar o primeiro arquivo com `draft: false`, a listagem, a página individual, o link na navegação e o sitemap passam a incluí-lo no próximo build. Revise o conteúdo antes de mudar o campo: não há fluxo de aprovação automático.
 
 ### Iniciativas e textos institucionais (expansão futura)
 

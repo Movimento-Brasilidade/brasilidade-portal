@@ -1,6 +1,8 @@
 ---
 import Base from '../layouts/Base.astro';
 import { site } from '../config/site';
+import { getPublications } from '../lib/content';
+const hasPublications = (await getPublications()).length > 0;
 ---
 <Base description={site.heroText}>
   <section class="landing-hero wrap" aria-labelledby="apresentacao">
@@ -40,17 +42,26 @@ import { site } from '../config/site';
         <article>
           <span class="card-number">02</span>
           <h3>Ideias e publicações</h3>
-          <p>Textos, análises e conversas para pensar o Brasil. As primeiras publicações chegarão aqui.</p>
-          <span class="card-status">Conteúdo em preparação</span>
+          <p>Textos, análises e conversas para pensar o Brasil. {hasPublications ? 'Leia nossas publicações.' : 'As primeiras publicações chegarão aqui.'}</p>
+          {hasPublications ? <a class="card-link" href={`${import.meta.env.BASE_URL}publicacoes/`}>Ler publicações <span aria-hidden="true">↗</span></a> : <span class="card-status">Conteúdo em preparação</span>}
         </article>
       </div>
+    </div>
+  </section>
+
+  <section id="loja" class="beta-section shop-section wrap" aria-labelledby="loja-titulo">
+    <p class="section-label">03 / Loja</p>
+    <div>
+      <h2 id="loja-titulo">Loja Brasilidade.</h2>
+      <p>A loja está em preparação. O acesso será disponibilizado aqui quando estiver pronta.</p>
+      <span class="card-status">Em breve</span>
     </div>
   </section>
 
   <section id="participe" class="beta-section join-section" aria-labelledby="participe-titulo">
     <div class="wrap join-inner">
       <div>
-        <p class="section-label">03 / Acompanhe</p>
+        <p class="section-label">04 / Acompanhe</p>
         <h2 id="participe-titulo">Fique por perto.</h2>
         <p>{site.participateText}</p>
       </div>

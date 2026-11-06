@@ -1,5 +1,6 @@
 ---
 import { site } from '../config/site';
+import { getPublications } from '../lib/content';
 import '../styles/global.css';
 import '../styles/brand.css';
 import '../styles/landing.css';
@@ -8,6 +9,7 @@ const { title, description = site.description, image, imageAlt, articleDate, aut
 const pageTitle = title ? `${title} | ${site.name}` : `${site.name} — Movimento político e social`;
 const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site).href : undefined;
 const socialImage = image && Astro.site ? new URL(image, Astro.site).href : undefined;
+const hasPublications = (await getPublications()).length > 0;
 ---
 <!doctype html>
 <html lang="pt-BR">
@@ -35,6 +37,8 @@ const socialImage = image && Astro.site ? new URL(image, Astro.site).href : unde
       <nav aria-label="Navegação principal">
         <a href={`${import.meta.env.BASE_URL}#sobre`}>Quem somos</a>
         <a href={`${import.meta.env.BASE_URL}#projetos-e-ideias`}>Projetos e ideias</a>
+        {hasPublications && <a href={`${import.meta.env.BASE_URL}publicacoes/`}>Publicações</a>}
+        <a href={`${import.meta.env.BASE_URL}#loja`}>Loja</a>
         <a href={`${import.meta.env.BASE_URL}#participe`}>Participe</a>
       </nav>
     </header>

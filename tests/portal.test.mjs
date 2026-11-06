@@ -15,7 +15,7 @@ test('rotas principais geradas com idioma, título e navegação acessível', as
 });
 test('rascunho de exemplo não gera página nem aparece no site', async () => {
   await assert.rejects(access(new URL('../dist/publicacoes/exemplo-editorial/index.html', import.meta.url)));
-  for (const path of ['index.html', 'sitemap.xml']) {
+  for (const path of ['index.html', 'publicacoes/index.html', 'sitemap.xml']) {
     assert.doesNotMatch(await read(`dist/${path}`), /exemplo-editorial|Exemplo de publicação/);
   }
 });
@@ -60,31 +60,69 @@ test('beta apresenta seções reais, estados em preparação e canais oficiais',
   assert.ok(html.includes(config.instagramLabel));
   assert.ok(html.includes(config.aboutTitle));
   assert.ok(html.includes(config.aboutText));
-  for (const id of ['sobre', 'projetos-e-ideias', 'participe']) assert.ok(html.includes(`id="${id}"`));
-  assert.match(html, /Conteúdo em preparação/);
+  for (const id of ['sobre', 'projetos-e-ideias', 'loja', 'participe']) assert.ok(html.includes(`id="${id}"`));
+  assert.match(html, /href="\/#loja">Loja<\/a>/);
+  assert.match(html, /Loja Brasilidade\./);
+  assert.match(html, /A loja está em preparação/);
   assert.doesNotMatch(html, /em revisão|trabalhistas|desenvolvimentistas|<form/);
   assert.equal((html.match(/<h1[ >]/g) || []).length, 1);
 });
-test('rotas antigas redirecionam sem conteúdo editorial e não entram no sitemap', async () => {
-  for (const route of ['sobre', 'iniciativas', 'publicacoes', 'iniciativas/trama-legislativa']) {
+test('rotas institucionais antigas redirecionam sem conteúdo editorial', async () => {
+  for (const route of ['sobre', 'iniciativas', 'iniciativas/trama-legislativa']) {
     const html = await read(`dist/${route}/index.html`);
     assert.match(html, /http-equiv="refresh"/i);
     assert.match(html, /content="2;url=\/"/i);
     assert.doesNotMatch(html, /<article|Apresentação provisória/);
   }
   const redirects = await read('dist/_redirects');
-  for (const route of ['sobre','iniciativas','publicacoes']) {
+  for (const route of ['sobre','iniciativas']) {
     assert.ok(redirects.includes(`/${route}/* / 302`));
     assert.ok(redirects.includes(`/${route}/ / 302`));
   }
+  assert.doesNotMatch(redirects, /\/publicacoes/);
   const sitemap = await read('dist/sitemap.xml');
-  assert.doesNotMatch(sitemap, /sobre|iniciativas|publicacoes/);
-  assert.equal((sitemap.match(/<loc>/g) || []).length, 1);
+  assert.doesNotMatch(sitemap, /sobre|iniciativas/);
   assert.ok(sitemap.includes('https://somosbrasilidade.com.br/'));
   assert.ok((await read('dist/robots.txt')).includes('https://somosbrasilidade.com.br/sitemap.xml'));
   const home = await read('dist/index.html');
   assert.ok(home.includes('rel="canonical" href="https://somosbrasilidade.com.br/"'));
   assert.doesNotMatch(home, /noindex/);
+});
+
+test('publicações só abrem quando há artigo aprovado', async () => {
+  const files = await readdir(new URL('../src/content/publicacoes/', import.meta.url), { recursive: true });
+  const published = [];
+  for (const file of files.filter(name => name.endsWith('.md'))) {
+    const source = await read(`src/content/publicacoes/${file.replaceAll('\\', '/')}`);
+    const frontmatter = parse(source.split('---', 3)[1]);
+    if (frontmatter.draft === false) published.push(file.replaceAll('\\', '/').slice(0, -3));
+  }
+  const home = await read('dist/index.html');
+  const listing = await read('dist/publicacoes/index.html');
+  const sitemap = await read('dist/sitemap.xml');
+  if (published.length === 0) {
+    assert.match(listing, /http-equiv="refresh"/i);
+    assert.match(home, /Conteúdo em preparação/);
+    assert.doesNotMatch(home, /href="\/publicacoes\/"/);
+    assert.doesNotMatch(sitemap, /publicacoes/);
+    return;
+  }
+  assert.doesNotMatch(listing, /http-equiv="refresh"/i);
+  assert.match(listing, /<h1>Publicações\.<\/h1>/);
+  assert.match(home, /href="\/publicacoes\/"/);
+  assert.doesNotMatch(home, /Conteúdo em preparação/);
+  assert.match(sitemap, /<loc>https:\/\/somosbrasilidade\.com\.br\/publicacoes\/<\/loc>/);
+  for (const id of published) {
+    const path = `publicacoes/${id.split('/').map(encodeURIComponent).join('/')}/`;
+    const article = await read(`dist/${path}index.html`);
+    assert.ok(listing.includes(`href="/${path}"`));
+    assert.ok(sitemap.includes(`https://somosbrasilidade.com.br/${path}`));
+    assert.match(article, /<meta property="og:type" content="article"/);
+    assert.match(article, /<meta property="article:published_time"/);
+    assert.match(article, /<meta name="author"/);
+    assert.match(article, /<link rel="canonical"/);
+    assert.match(article, /← Todas as publicações/);
+  }
 });
 
 
