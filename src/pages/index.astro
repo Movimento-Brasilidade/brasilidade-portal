@@ -1,8 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
 import { site } from '../config/site';
-import { getPublications } from '../lib/content';
-const hasPublications = (await getPublications()).length > 0;
 ---
 <Base description={site.heroText}>
   <section class="landing-hero wrap" aria-labelledby="apresentacao">
@@ -41,9 +39,9 @@ const hasPublications = (await getPublications()).length > 0;
         </article>
         <article>
           <span class="card-number">02</span>
-          <h3>Ideias e publicações</h3>
-          <p>Textos, análises e conversas para pensar o Brasil. {hasPublications ? 'Leia nossas publicações.' : 'As primeiras publicações chegarão aqui.'}</p>
-          {hasPublications ? <a class="card-link" href={`${import.meta.env.BASE_URL}publicacoes/`}>Ler publicações <span aria-hidden="true">↗</span></a> : <span class="card-status">Conteúdo em preparação</span>}
+          <h3>Blog Brasilidade</h3>
+          <p>Textos, análises e conversas para pensar o Brasil.</p>
+          <a class="card-link" href={`${import.meta.env.BASE_URL}publicacoes/`}>Acessar o blog <span aria-hidden="true">↗</span></a>
         </article>
       </div>
     </div>

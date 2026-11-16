@@ -5,7 +5,7 @@ import { parse } from 'yaml';
 const read = path => readFile(new URL(`../${path}`, import.meta.url), 'utf8');
 
 test('rotas principais geradas com idioma, título e navegação acessível', async () => {
-  for (const path of ['index.html', '404.html']) {
+  for (const path of ['index.html', 'publicacoes/index.html', '404.html']) {
     const html = await read(`dist/${path}`);
     assert.match(html, /lang="pt-BR"/);
     assert.match(html, /<h1[\s>]/);
@@ -89,7 +89,7 @@ test('rotas institucionais antigas redirecionam sem conteúdo editorial', async 
   assert.doesNotMatch(home, /noindex/);
 });
 
-test('publicações só abrem quando há artigo aprovado', async () => {
+test('blog sempre acessível e publica somente artigos aprovados', async () => {
   const files = await readdir(new URL('../src/content/publicacoes/', import.meta.url), { recursive: true });
   const published = [];
   for (const file of files.filter(name => name.endsWith('.md'))) {
@@ -100,18 +100,13 @@ test('publicações só abrem quando há artigo aprovado', async () => {
   const home = await read('dist/index.html');
   const listing = await read('dist/publicacoes/index.html');
   const sitemap = await read('dist/sitemap.xml');
-  if (published.length === 0) {
-    assert.match(listing, /http-equiv="refresh"/i);
-    assert.match(home, /Conteúdo em preparação/);
-    assert.doesNotMatch(home, /href="\/publicacoes\/"/);
-    assert.doesNotMatch(sitemap, /publicacoes/);
-    return;
-  }
   assert.doesNotMatch(listing, /http-equiv="refresh"/i);
-  assert.match(listing, /<h1>Publicações\.<\/h1>/);
-  assert.match(home, /href="\/publicacoes\/"/);
+  assert.match(listing, /<h1>Blog Brasilidade\.<\/h1>/);
+  assert.match(home, /href="\/publicacoes\/">Blog<\/a>/);
+  assert.match(home, /Acessar o blog/);
   assert.doesNotMatch(home, /Conteúdo em preparação/);
   assert.match(sitemap, /<loc>https:\/\/somosbrasilidade\.com\.br\/publicacoes\/<\/loc>/);
+  if (published.length === 0) assert.match(listing, /Um espaço para ideias e debate/);
   for (const id of published) {
     const path = `publicacoes/${id.split('/').map(encodeURIComponent).join('/')}/`;
     const article = await read(`dist/${path}index.html`);
@@ -121,7 +116,7 @@ test('publicações só abrem quando há artigo aprovado', async () => {
     assert.match(article, /<meta property="article:published_time"/);
     assert.match(article, /<meta name="author"/);
     assert.match(article, /<link rel="canonical"/);
-    assert.match(article, /← Todas as publicações/);
+    assert.match(article, /← Voltar ao blog/);
   }
 });
 
