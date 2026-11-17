@@ -4,7 +4,7 @@ main { flex: 1; }
 .site-header { min-height: 94px; }
 .header-logo { display: inline-flex; flex: 0 0 auto; }
 .header-logo img { width: 150px; height: auto; }
-.site-header nav { display: flex; align-items: center; gap: clamp(18px, 3vw, 40px); font-size: .82rem; font-weight: 750; text-transform: uppercase; }
+.site-header nav { display: flex; flex-wrap: wrap; justify-content: flex-end; align-items: center; gap: 12px clamp(18px, 3vw, 40px); font-size: .82rem; font-weight: 750; text-transform: uppercase; }
 .site-header nav a { text-decoration: none; }
 .site-header nav a:hover { text-decoration: underline; }
 .section-label { margin: 0 0 24px; font-size: .78rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; line-height: 1.4; }

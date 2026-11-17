@@ -1,0 +1,51 @@
+---
+import { z } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import data from '../../content/parceiros.json';
+
+const partners = z.array(z.object({
+  name: z.string().trim().min(1),
+  description: z.string().trim().min(1),
+  links: z.array(z.object({
+    label: z.string().trim().min(1),
+    url: z.string().url().refine(url => /^https?:\/\//.test(url), 'Use HTTP(S)'),
+  })).min(1),
+})).parse(data);
+---
+<Base title="Parceiros" description="Conheça os amigos, páginas e projetos que caminham com o Brasilidade.">
+  <div class="wrap page">
+    <header class="page-heading">
+      <p class="eyebrow">Nossa rede</p>
+      <h1>Parceiros.</h1>
+      <p class="lead">Amigos, páginas e projetos que caminham com o Brasilidade. Conheça suas ideias e acompanhe seus trabalhos.</p>
+    </header>
+    {partners.length === 0 ? (
+      <div class="empty">
+        <p class="eyebrow">Em breve</p>
+        <h2>Boas conexões merecem espaço.</h2>
+        <p>Em breve, você encontrará aqui os sites e perfis dos nossos parceiros.</p>
+      </div>
+    ) : (
+      <div class="partners-grid">
+        {partners.map(partner => (
+          <article class="partner-card">
+            <h2>{partner.name}</h2>
+            <p>{partner.description}</p>
+            <div class="partner-links">
+              {partner.links.map(link => <a href={link.url} aria-label={`${link.label} — ${partner.name}`}>{link.label} <span aria-hidden="true">↗</span></a>)}
+            </div>
+          </article>
+        ))}
+      </div>
+    )}
+  </div>
+</Base>
+
+<style>
+  .empty h2{font-size:1.8rem;margin-bottom:12px}
+  .partners-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:24px}
+  .partner-card{padding:28px;border:1px solid var(--line);background:var(--white);overflow-wrap:anywhere}
+  .partner-card h2{font-size:1.7rem;margin-bottom:16px}
+  .partner-card p{color:var(--muted)}
+  .partner-links{display:flex;flex-wrap:wrap;gap:16px;font-weight:700}
+</style>

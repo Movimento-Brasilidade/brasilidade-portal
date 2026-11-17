@@ -60,6 +60,25 @@ Validação da landing page: `astro check` sem erros ou avisos; build estático 
 
 ## Editar conteúdo
 
+### Parceiros — cadastro manual
+
+A página `/parceiros/` aparece no menu e no sitemap. Edite `src/content/parceiros.json`: cada item tem nome, descrição e um ou mais links para Instagram, site ou outra página do parceiro. A ordem do arquivo define a ordem dos cartões. Lista vazia mostra a mensagem de estreia; não há parceiros fictícios publicados.
+
+```json
+[
+  {
+    "name": "Nome do parceiro",
+    "description": "Breve apresentação do trabalho do parceiro.",
+    "links": [
+      { "label": "Instagram", "url": "https://www.instagram.com/perfil/" },
+      { "label": "Site", "url": "https://example.com/" }
+    ]
+  }
+]
+```
+
+Use apenas links HTTP(S). Substitua os exemplos por dados reais e execute `npm run build` e `npm test` antes de publicar.
+
 ### Blog — publicação manual
 
 A edição é feita diretamente nos arquivos Markdown, sem depender de CMS. Copie o modelo `src/content/publicacoes/exemplo-editorial.md`, preencha os campos e o texto, revise e altere para `draft: false`. Execute `npm run build` e `npm test` antes de enviar a alteração para publicação.

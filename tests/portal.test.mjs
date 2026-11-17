@@ -5,7 +5,7 @@ import { parse } from 'yaml';
 const read = path => readFile(new URL(`../${path}`, import.meta.url), 'utf8');
 
 test('rotas principais geradas com idioma, título e navegação acessível', async () => {
-  for (const path of ['index.html', 'publicacoes/index.html', '404.html']) {
+  for (const path of ['index.html', 'publicacoes/index.html', 'parceiros/index.html', '404.html']) {
     const html = await read(`dist/${path}`);
     assert.match(html, /lang="pt-BR"/);
     assert.match(html, /<h1[\s>]/);
@@ -19,6 +19,20 @@ test('rascunho de exemplo não gera página nem aparece no site', async () => {
     assert.doesNotMatch(await read(`dist/${path}`), /exemplo-editorial|Exemplo de publicação/);
   }
 });
+test('parceiros tem acesso no menu, sitemap e contatos cadastrados', async () => {
+  const partners = JSON.parse(await read('src/content/parceiros.json'));
+  const html = await read('dist/parceiros/index.html');
+  assert.match(await read('dist/index.html'), /href="\/parceiros\/">Parceiros<\/a>/);
+  assert.match(await read('dist/sitemap.xml'), /<loc>https:\/\/somosbrasilidade\.com\.br\/parceiros\/<\/loc>/);
+  if (partners.length === 0) assert.match(html, /Boas conexões merecem espaço/);
+  for (const partner of partners) {
+    const escape = text => text.replaceAll('&', '&amp;').replaceAll('"', '&quot;').replaceAll('<', '&lt;').replaceAll('>', '&gt;');
+    assert.ok(html.includes(escape(partner.name)));
+    assert.ok(html.includes(escape(partner.description)));
+    for (const link of partner.links) assert.ok(html.includes(`href="${escape(link.url)}"`));
+  }
+});
+
 test('CMS aponta para conteúdo existente e para uploads públicos', async () => {
   const cms = parse(await read('.pages.yml'));
   assert.equal(cms.media.input, 'public/uploads');
