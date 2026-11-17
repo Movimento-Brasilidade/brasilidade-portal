@@ -45,5 +45,6 @@ const socialImage = image && Astro.site ? new URL(image, Astro.site).href : unde
       <p class="copyright">© {site.name} <span>· Portal beta</span></p>
       {site.instagramUrl && <a href={site.instagramUrl}>{site.instagramLabel} <span aria-hidden="true">↗</span></a>}
     </div></footer>
+    {import.meta.env.PROD && <script is:inline type="module" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token":"3bd5afe4726f4a3793ffe4042485e3ba"}'></script>}
   </body>
 </html>

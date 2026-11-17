@@ -1,6 +1,6 @@
 # Landing page Brasilidade
 
-Portal beta com apresentação, projetos e canais de contato. Sem formulário, cadastro, rastreamento ou dependências novas.
+Portal beta com apresentação, projetos e canais de contato. Sem formulário ou cadastro; contagem de acessos com Cloudflare Web Analytics.
 
 Planejamento de evolução e decisões pendentes: [Roadmap do portal](docs/ROADMAP.md).
 
@@ -141,7 +141,7 @@ Procedimento final: validar apresentação, Instagram e identidade; executar bui
 
 ## Operação e limites
 
-- Sem dados pessoais coletados, cookies de rastreamento ou recursos externos carregados pela interface.
+- Cloudflare Web Analytics instalado em `src/layouts/Base.astro`, com o token público do site. O script externo é carregado nos builds de produção e omitido em `npm run dev`. Consulte as métricas na conta Cloudflare vinculada ao token; prévias do build também carregam o script. Não há formulário ou cadastro no portal.
 - Conteúdo é público, inclusive arquivos em rascunho e imagens enviadas. Nunca armazene listas de integrantes, atas privadas ou credenciais.
 - Markdown destina-se a editores confiáveis; código/HTML não deve ser colado de fontes desconhecidas. Revise alterações no GitHub.
 - Para corrigir uma publicação, edite e salve; para retirá-la, ative o rascunho. O próximo deploy aplica a mudança. Mídia publicada e histórico Git não são apagados por isso.
