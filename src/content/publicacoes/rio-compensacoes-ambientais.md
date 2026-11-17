@@ -2,7 +2,7 @@
 title: O Rio tem R$ 16 milhões em compensações ambientais que não saíram do papel
 description: Não sabia? Então está na hora de conhecer o Compensômetro.
 date: 2026-11-16
-author: Fábio
+author: Fábio Vongrá
 draft: false
 tags: [Meio ambiente]
 ---
