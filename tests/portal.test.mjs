@@ -145,3 +145,12 @@ test('assets referenciados pelo CSS existem na raiz do domínio próprio', async
     }
   }
 });
+
+test('versão alternativa mantém navegação e artigos no próprio caminho', async () => {
+  const home = await read('dist/alternativa/index.html');
+  const blog = await read('dist/alternativa/publicacoes/index.html');
+  for (const route of ['publicacoes/', 'parceiros/', 'assinar/']) assert.ok(home.includes(`href="/alternativa/${route}"`));
+  assert.match(home, /name="robots" content="noindex, follow"/);
+  assert.ok(blog.includes('href="/alternativa/publicacoes/rio-compensacoes-ambientais/"'));
+  assert.ok((await read('dist/alternativa/publicacoes/rio-compensacoes-ambientais/index.html')).includes('href="/alternativa/publicacoes/"'));
+});

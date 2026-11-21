@@ -1,0 +1,20 @@
+---
+import Base from '../../layouts/Base.astro';
+
+const formUrl = 'https://7de8880d.sibforms.com/v2/serve/MUIFABf522mMYuZ5E0vUb1E5boaC6SxaYkIqdpL92Jy5LW729Ti5MLbddjARmtyoT9BpjqXdmW8LiEkIVDP8s0CpR8TvOfamHC7torjFe6SGeVHXIrWs2BWTkDLPEK37LAfbAMbR02pHrENQJn4Np7usIYCRZEIG5nGeCHWSvfyIYLFYDZRReCvRhAS9RZAqa2X-2nO7_PRYc-qRZQ==';
+---
+
+<Base title="Assine o Folhetim Brasilidade" description="Receba novidades e histórias da Brasilidade no seu email.">
+  <section class="newsletter" aria-labelledby="newsletter-title">
+    <h1 id="newsletter-title">Assine o Folhetim Brasilidade</h1>
+    <iframe src={formUrl} title="Formulário de inscrição no Folhetim Brasilidade" width="540" height="720"></iframe>
+    <p>Não conseguiu visualizar o formulário? <a href={formUrl} target="_blank" rel="noopener">Abra em uma nova aba.</a></p>
+  </section>
+</Base>
+
+<style>
+  .newsletter { padding: 24px 12px; background: #f6f5ef; }
+  h1 { text-align: center; font-size: clamp(2rem, 4vw, 3rem); }
+  iframe { display: block; width: 100%; max-width: 540px; height: 720px; margin: 0 auto; border: 0; }
+  p { text-align: center; font-size: 14px; }
+</style>

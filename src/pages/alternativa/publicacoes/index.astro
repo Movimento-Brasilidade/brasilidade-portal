@@ -1,0 +1,8 @@
+---
+import Base from '../../../layouts/Base.astro';
+import Publications from '../../../components/Publications.astro';
+import { getPublications } from '../../../lib/content';
+import '../../../styles/alternativa.css';
+const entries = await getPublications();
+---
+<Base title="Blog" description="Artigos, análises e notícias do Brasilidade."><div class="blog-page"><header class="blog-hero"><div class="wrap"><p class="eyebrow">Blog Brasilidade</p><h1>Ideias em<br /> movimento<span>.</span></h1><p>Textos, análises e conversas<br /> para pensar o Brasil.</p></div></header><div class="wrap page blog-content"><Publications entries={entries} section="alternativa/publicacoes" /></div></div></Base>

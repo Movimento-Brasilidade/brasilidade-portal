@@ -1,0 +1,73 @@
+---
+import Base from '../layouts/Base.astro';
+import { site } from '../config/site';
+import '../styles/alternativa.css';
+---
+<Base title="Versão alternativa" description="Pessoas, ideias e iniciativas para transformar o Brasil." noindex>
+  <section class="landing-hero wrap" aria-labelledby="apresentacao">
+    <div class="hero-copy">
+      
+      <h1 id="apresentacao">O Brasil que vive<span>Se constrói junto.</span></h1>
+      <p class="landing-intro">Pessoas, ideias e iniciativas para transformar o Brasil.</p>
+      <a class="primary-link" href="#sobre">Conheça o movimento <span aria-hidden="true">↘</span></a>
+    </div>
+    <div class="hero-visual" aria-hidden="true">
+      <img src={`${import.meta.env.BASE_URL}images/movimento-ilustracao.png`} alt="" width="1536" height="1024" />
+    </div>
+  </section>
+
+  <section id="projetos-e-ideias" class="beta-section upcoming-section" aria-labelledby="proximos-titulo">
+    <div class="wrap">
+      <h2 id="proximos-titulo">Em<br /> movimento<span>.</span></h2>
+      <div class="upcoming-grid">
+        <article>
+          <span class="card-icon" aria-hidden="true">☀</span>
+          <h3>Trama Legislativa</h3>
+          <p>Busque proposições da Câmara dos Deputados e acompanhe sua tramitação.</p>
+          {site.tramaUrl && <a class="card-link" href={site.tramaUrl}>Acessar a Trama <span aria-hidden="true">↗</span></a>}
+        </article>
+        <article>
+          <span class="card-icon" aria-hidden="true">✳</span>
+          <h3>Blog Brasilidade</h3>
+          <p>Textos, análises e conversas para pensar o Brasil.</p>
+          <a class="card-link" href={`${import.meta.env.BASE_URL}alternativa/publicacoes/`}>Acessar o blog <span aria-hidden="true">↗</span></a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="sobre" class="beta-section about-section wrap" aria-labelledby="sobre-titulo">
+    <p class="section-label">01 / Quem somos</p>
+    <div>
+      <h2 id="sobre-titulo">{site.aboutTitle}</h2>
+      <p>{site.aboutText}</p>
+      <p>Este portal está começando. Em breve, reuniremos aqui mais informações sobre nossas ideias e formas de atuação.</p>
+    </div>
+  </section>
+
+  <section id="loja" class="beta-section shop-section wrap" aria-labelledby="loja-titulo">
+    <p class="section-label">03 / Loja</p>
+    <div>
+      <h2 id="loja-titulo">Loja Brasilidade.</h2>
+      <p>A loja está em preparação. O acesso será disponibilizado aqui quando estiver pronta.</p>
+      <span class="card-status">Em breve</span>
+    </div>
+  </section>
+
+  <section id="participe" class="beta-section join-section" aria-labelledby="participe-titulo">
+    <div class="wrap join-inner">
+      <div>
+        <p class="section-label">04 / Acompanhe</p>
+        <h2 id="participe-titulo">Fique por perto.</h2>
+        <p>{site.participateText}</p>
+      </div>
+      <div class="join-links">
+        <a class="secondary-link" href={`${import.meta.env.BASE_URL}alternativa/assinar/`}>Assine o Folhetim Brasilidade <span aria-hidden="true">↗</span></a>
+        {site.whatsappUrl && <a class="primary-link" href={site.whatsappUrl}>Entre no grupo do WhatsApp <span aria-hidden="true">↗</span></a>}
+        {site.instagramUrl && <a class="secondary-link" href={site.instagramUrl}>{site.instagramCta} <span aria-hidden="true">↗</span></a>}
+        {site.contactEmail && <a class="secondary-link" href={`mailto:${site.contactEmail}`}>{site.contactEmail} <span aria-hidden="true">↗</span></a>}
+      </div>
+    </div>
+  </section>
+</Base>
+
