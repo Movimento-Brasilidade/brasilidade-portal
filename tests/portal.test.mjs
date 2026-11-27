@@ -5,7 +5,7 @@ import { parse } from 'yaml';
 const read = path => readFile(new URL(`../${path}`, import.meta.url), 'utf8');
 
 test('rotas principais geradas com idioma, título e navegação acessível', async () => {
-  for (const path of ['index.html', 'publicacoes/index.html', 'parceiros/index.html', '404.html']) {
+  for (const path of ['index.html', 'qr/index.html', 'publicacoes/index.html', 'parceiros/index.html', '404.html']) {
     const html = await read(`dist/${path}`);
     assert.match(html, /lang="pt-BR"/);
     assert.match(html, /<h1[\s>]/);

@@ -3,6 +3,15 @@ media:
   output: /uploads
   extensions: [png, jpg, jpeg, webp, avif]
 content:
+  - name: qr
+    label: Página do QR Code
+    type: file
+    path: src/content/institucional/qr.md
+    format: yaml-frontmatter
+    fields:
+      - { name: title, label: Título, type: string, required: true }
+      - { name: description, label: Apresentação, type: text, required: true }
+      - { name: body, label: Conteúdo e links, type: rich-text, required: true }
   - name: publications
     label: Publicações (reservadas para expansão)
     type: collection

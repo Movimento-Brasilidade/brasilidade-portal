@@ -60,6 +60,12 @@ Validação da landing page: `astro check` sem erros ou avisos; build estático 
 
 ## Editar conteúdo
 
+### Página do QR Code
+
+O código impresso abre **https://somosbrasilidade.com.br/qr/**. Use o [PNG](public/brand/qr-brasilidade.png) em mensagens ou o [SVG](public/brand/qr-brasilidade.svg) em materiais impressos. Preserve a margem branca da imagem.
+
+No Pages CMS, abra **Página do QR Code**, edite o título, a apresentação e o conteúdo com os links desejados. Também é possível editar `src/content/institucional/qr.md` diretamente. Assim que a alteração em `main` for publicada, o mesmo QR exibirá a nova versão. Mantenha o domínio e a rota `/qr/` nos próximos materiais e migrações.
+
 ### Parceiros — cadastro manual
 
 A página `/parceiros/` aparece no menu e no sitemap. Edite `src/content/parceiros.json`: cada item tem nome, descrição e um ou mais links para Instagram, site ou outra página do parceiro. A ordem do arquivo define a ordem dos cartões. Lista vazia mostra a mensagem de estreia; não há parceiros fictícios publicados.
