@@ -1,5 +1,6 @@
 ---
 import { getEntry, render } from 'astro:content';
+import { site } from '../config/site';
 import Base from '../layouts/Base.astro';
 
 const entry = await getEntry('institutional', 'qr');
@@ -12,6 +13,7 @@ const { Content } = await render(entry);
     <header class="page-heading">
       <h1>{title}</h1>
       <p class="lead">{description}</p>
+      {site.whatsappUrl && <a class="primary-link" href={site.whatsappUrl}>Entre no grupo do WhatsApp <span aria-hidden="true">↗</span></a>}
     </header>
     <div class="prose"><Content /></div>
   </article>
